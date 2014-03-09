@@ -8,6 +8,7 @@ if len(sys.argv) != 2:
 
 video_obj = youtube_stats(sys.argv[1])
 
+print "Views: "+str(video_obj.views())
 print "Likes: "+str(video_obj.likes())
 print "DisLikes: "+str(video_obj.dislikes())
 
