@@ -1,5 +1,42 @@
 import urllib2
-import sys
+
+class youtube_search:
+    def __init__(self,search_string):
+    
+        """ fetch the html page and save the search query page to variable self.html """
+        url_video = "http://www.youtube.com/results?search_query="+urllib2.quote(search_string)
+        response = urllib2.urlopen(url_video)
+        self.html = response.read()
+        
+        index_var = 0
+        max_index = 0
+        self.result_links = []
+
+        while True:
+            index_var = self.html.find('/watch?v=',index_var)+9
+            if index_var < 9:
+                break
+            index_var_end = index_var
+            while self.html[index_var_end] != '\"' and self.html[index_var_end] != '<':
+                index_var_end += 1
+            self.result_links.append(self.html[index_var:index_var_end])
+
+        self.result_links = list(set(self.result_links))
+        for video_tag_index in xrange(len(self.result_links)):
+            self.result_links[video_tag_index] ='http://www.youtube.com/watch?v='+self.result_links[video_tag_index]
+            
+    def get_result(self,index):
+        
+        try:
+            if index < 1 or index > len(self.result_links):
+                raise Exception("In youtube_search().get_result(): Index out of bounds")
+        except:
+            raise Exception("In youtube_search().get_result(): Index out of bounds")
+        
+        return self.result_links[index-1]
+        
+    def get_all(self):
+        return self.result_links
 
 class youtube_stats:
     
