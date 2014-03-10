@@ -8,6 +8,23 @@ class youtube_stats:
         response = urllib2.urlopen(url_video)
         self.html = response.read()
 
+    def title(self):
+        """ Find the tag 'title' in the self.html page  """
+        index_title_start = self.html.find("title")
+
+        """ Find the next occurance of '>' after the class """
+        while self.html[index_title_start]!='>':
+	        index_title_start+=1
+        index_title_start+=1
+
+        """ index_title_end stores the index of the end of title """
+        index_title_end = self.html.find("- YouTube")
+
+        """ title_str stores the title as a string variable """
+        title_str = self.html[index_title_start:index_title_end]
+
+        return title_str    
+    
     def views(self):
         """ Find the class 'watch-view-count' in the self.html page  """
         index_viewscnt = self.html.find("watch-view-count")
