@@ -29,9 +29,9 @@ class youtube_search:
         
         try:
             if index < 1 or index > len(self.result_links):
-                raise Exception("In youtube_search().get_result(): Index out of bounds")
+                raise Exception("In youtube_search.get_result(): Index out of bounds")
         except:
-            raise Exception("In youtube_search().get_result(): Index out of bounds")
+            raise Exception("In youtube_search.get_result(): Index out of bounds")
         
         return self.result_links[index-1]
         
